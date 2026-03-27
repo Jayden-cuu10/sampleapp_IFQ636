@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -103,19 +102,6 @@ function EditBook() {
       {message && <p>{message}</p>}
     </div>
   );
-=======
-function EditBook(){
-    return(
-        <div>
-            <h1>
-                Edit Book
-            </h1>
-            <p>
-                Welcome to edit page, you can change the book infroamtion here
-            </p>
-        </div>
-    );
->>>>>>> Stashed changes
 }
 
 export default EditBook;
