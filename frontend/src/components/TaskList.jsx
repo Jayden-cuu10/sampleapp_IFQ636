@@ -6,12 +6,12 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
 
   const handleDelete = async (taskId) => {
     try {
-      await axiosInstance.delete(`/api/tasks/${taskId}`, {
+      await axiosInstance.delete(`/api/book/${taskId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setTasks(tasks.filter((task) => task._id !== taskId));
     } catch (error) {
-      alert('Failed to delete task.');
+      alert('Failed to delete book.');
     }
   };
 
@@ -20,8 +20,9 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
       {tasks.map((task) => (
         <div key={task._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
           <h2 className="font-bold">{task.title}</h2>
-          <p>{task.description}</p>
-          <p className="text-sm text-gray-500">Deadline: {new Date(task.deadline).toLocaleDateString()}</p>
+          <p>Author: {task.author}</p>
+          <p className='text-sm text-gray-500'>Type: {task.type}</p>
+  
           <div className="mt-2">
             <button
               onClick={() => setEditingTask(task)}
