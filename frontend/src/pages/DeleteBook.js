@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -44,6 +45,19 @@ function DeleteBook() {
       {message && <p>{message}</p>}
     </div>
   );
+=======
+function DeleteBook(){
+    return(
+        <div>
+            <h1>
+                Delete Book
+            </h1>
+            <p>
+                you can delete book here
+            </p>
+        </div>
+    );
+>>>>>>> Stashed changes
 }
 
 export default DeleteBook;
