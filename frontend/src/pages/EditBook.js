@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function EditBook() {
-  const [bookId, setBookId] = useState('');
+  const [booktitle, setBooktitle] = useState('');
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [price, setPrice] = useState('');
@@ -14,7 +14,7 @@ function EditBook() {
     e.preventDefault();
 
     try {
-      await axios.put(`http://localhost:5001/api/book/${bookId}`, {
+      await axios.put(`http://localhost:5001/api/book/title/${encodeURIComponent(booktitle)}`, {
         title,
         author,
         price,
@@ -22,7 +22,7 @@ function EditBook() {
       });
 
       setMessage('Book updated successfully!');
-      setBookId('');
+      setBooktitle('');
       setTitle('');
       setAuthor('');
       setPrice('');
@@ -41,13 +41,13 @@ function EditBook() {
 
       <form onSubmit={handleUpdate}>
         <div>
-          <label>Book ID</label>
+          <label>Book Title</label>
           <br />
           <input
             type="text"
-            value={bookId}
-            onChange={(e) => setBookId(e.target.value)}
-            placeholder="Enter book id"
+            value={booktitle}
+            onChange={(e) => setBooktitle(e.target.value)}
+            placeholder="Enter book Title"
           />
         </div>
 
