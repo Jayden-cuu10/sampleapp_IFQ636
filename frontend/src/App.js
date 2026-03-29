@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import AddBook from './pages/AddBook';
 import EditBook from './pages/EditBook';
 import DeleteBook from './pages/DeleteBook';
+import BookListpage from './pages/Booklistpage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/add-book" element={<AddBook />} />
         <Route path="/edit-book" element={<EditBook />} />
         <Route path="/delete-book" element={<DeleteBook />} />
+        <Route path="/books" element={<BookListpage/>} />
       </Routes>
     </Router>
   );
