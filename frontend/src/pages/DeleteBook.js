@@ -3,16 +3,16 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function DeleteBook() {
-  const [bookId, setBookId] = useState('');
+  const [booktitle, setBooktitle] = useState('');
   const [message, setMessage] = useState('');
 
   const handleDelete = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.delete(`http://localhost:5001/api/book/${bookId}`);
+      await axios.delete(`http://localhost:5001/api/book/title/${encodeURIComponent(booktitle)}`);
       setMessage('Book deleted successfully!');
-      setBookId('');
+      setBooktitle('');
     } catch (error) {
       setMessage('Failed to delete book.');
       console.error(error);
@@ -23,17 +23,17 @@ function DeleteBook() {
     <div>
       <Link to="/dashboard">Back to dashboard</Link>
       <h1>Delete Book</h1>
-      <p>Delete a book by id.</p>
+      <p>Delete a book by title.</p>
 
       <form onSubmit={handleDelete}>
         <div>
-          <label>Book ID</label>
+          <label>Book title</label>
           <br />
           <input
             type="text"
-            value={bookId}
-            onChange={(e) => setBookId(e.target.value)}
-            placeholder="Enter book id"
+            value={booktitle}
+            onChange={(e) => setBooktitle(e.target.value)}
+            placeholder="Enter book title"
           />
         </div>
 
