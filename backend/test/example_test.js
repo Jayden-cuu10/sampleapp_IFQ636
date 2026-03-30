@@ -59,7 +59,9 @@ describe ('AddBook Function Test',()=>{
 
         createStub.restore();
     });
+});
 
+describe ('ViewBook Function Test',()=>{
     it('should get all books successfully', async()=>{
         const books =[{
             _id: new mongoose.Types.ObjectId(),
@@ -92,6 +94,26 @@ describe ('AddBook Function Test',()=>{
         findStub.restore();
 
     });
+
+    it('Should return 500 if getBooks throws an error',async()=>{
+        const findStub = sinon.stub(Book,'find').throws(new Error('DB Error'));
+
+        const req ={};
+        const res ={
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
+
+        await getBooks(req,res);
+        
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.calledWithMatch({message:'DB Error'})).to.be.true;
+
+        findStub.restore();
+    });
+});
+
+describe ('UpdateBook Function Test',()=>{
 
     it('Should update a book successfully',async()=>{
         const req ={
@@ -134,6 +156,64 @@ describe ('AddBook Function Test',()=>{
         findOneStub.restore();
     });
 
+    it('should return 404 if the book to update is not found',async()=>{
+        const req={
+            params:{title:'Missing Book'},
+            body:{
+                title:'New Book',
+                author:'New author',
+                price:'25',
+                type:'Novel'
+            }
+        };
+
+        const findOneStub = sinon.stub(Book,'findOne').resolves(null);
+
+        const res ={
+            status: sinon.stub().returnsThis(),
+            json:sinon.spy()
+        };
+
+        await updateBook(req,res);
+
+        expect(findOneStub.calledOnceWith({title:'Missing Book'})).to.be.true;
+        expect(res.status.calledWith(404)).to.be.true;
+        expect(res.json.calledWith({message:'Book not found'})).to.be.true;
+
+        findOneStub.restore();
+    });
+
+    it('should reutren 500 if updateBook throws an error',async()=>{
+        const req ={
+            params:{title:'Old Book'},
+            body:{
+                title:'New Book',
+                author:'New author',
+                price:'25',
+                type:'Novel'
+            }
+        };
+
+        const findOneStub = sinon.stub(Book,'findOne').throws(new Error('DB Error'));
+
+        const res ={
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
+
+        await updateBook(req,res);
+
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.calledWithMatch({message:'DB Error'})).to.be.true;
+
+        findOneStub.restore();
+    });
+    
+    
+});
+
+describe ('DeleteBook Function Test',()=>{
+
     it('Should delete a book successfully', async()=> {
         const req ={
             params:{title:'Book 1'}
@@ -158,7 +238,47 @@ describe ('AddBook Function Test',()=>{
 
         findOneStub.restore();
 
+    });
 
+    it('should return 404 if the book to delete is not found', async()=>{
+        const req={
+            params:{title:'Missing Book'}
+        };
+
+        const findOneStub = sinon.stub(Book,'findOne').resolves(null);
+
+        const res={
+            status: sinon.stub().returnsThis(),
+            json:sinon.spy()
+        };
+
+        await deleteBook(req,res);
+
+        expect(findOneStub.calledOnceWith({title:'Missing Book'})).to.be.true;
+        expect(res.status.calledWith(404)).to.be.true;
+        expect(res.json.calledWith({message:'Book not found'})).to.be.true;
+
+        findOneStub.restore();
+    });
+
+    it('should return 500 if deleteBook throws an Error', async()=>{
+        const req = {
+            params:{title:'Book 1'}
+        };
+
+        const findOneStub = sinon.stub(Book,'findOne').throws(new Error('DB Error'));
+
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
+
+        await deleteBook(req,res);
+
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.calledWithMatch({message:'DB Error'})).to.be.true;
+
+        findOneStub.restore();
     });
         
     
