@@ -19,21 +19,21 @@ jobs:
             node-version: [22]
 
     
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: ${{ matrix.node-version }}
       
-      - name: Install Backend Dependencies
-        working-directory: ./backend
-        run: npm install
+        - name: Install Backend Dependencies
+          working-directory: ./backend
+          run: npm install
 
-      - name: Run Backend Tests
-        working-directory: ./backend
-        run: npm test
+        - name: Run Backend Tests
+          working-directory: ./backend
+          run: npm test
 
 
