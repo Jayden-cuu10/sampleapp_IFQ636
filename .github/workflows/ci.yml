@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - main
+            -bookfeatures
     pull_request:
         branches:
             - main
@@ -12,6 +13,11 @@ jobs:
     test:
         name: Run Backend Tests
         runs-on: ubuntu-latest
+
+        strategy: 
+          matrix:
+            node-version: [22]
+
     
     steps:
       - name: Checkout Code
@@ -20,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: [22]
+          node-version: ${{ matrix.node-version }}
       
       - name: Install Backend Dependencies
         working-directory: ./backend
