@@ -12,10 +12,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post('/api/auth/login', formData);
+      alert('login api success');
       login(response.data);
       navigate('/dashboard');
     } catch (error) {
-      alert('Login failed. Please try again.');
+      console.log(error);
+      alert(error?.response?.data?.message || error.message || 'Login failed');
     }
   };
 
