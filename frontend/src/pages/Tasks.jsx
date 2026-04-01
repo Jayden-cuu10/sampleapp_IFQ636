@@ -6,33 +6,33 @@ import { useAuth } from '../context/AuthContext';
 
 const Tasks = () => {
   const { user } = useAuth();
-  const [tasks, setTasks] = useState([]);
-  const [editingTask, setEditingTask] = useState(null);
+  const [books, setBooks] = useState([]);
+  const [editingBook, setEditingBook] = useState(null);
 
   useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchBooks = async () => {
       try {
-        const response = await axiosInstance.get('/api/tasks', {
+        const response = await axiosInstance.get('/api/book', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
-        setTasks(response.data);
+        setBooks(response.data);
       } catch (error) {
-        alert('Failed to fetch tasks.');
+        alert('Failed to fetch books.');
       }
     };
 
-    fetchTasks();
+    fetchBooks();
   }, [user]);
 
   return (
     <div className="container mx-auto p-6">
       <TaskForm
-        tasks={tasks}
-        setTasks={setTasks}
-        editingTask={editingTask}
-        setEditingTask={setEditingTask}
+        tasks={books}
+        setTasks={setBooks}
+        editingTask={editingBook}
+        setEditingTask={setEditingBook}
       />
-      <TaskList tasks={tasks} setTasks={setTasks} setEditingTask={setEditingTask} />
+      <TaskList tasks={books} setTasks={setBooks} setEditingTask={setEditingBook} />
     </div>
   );
 };

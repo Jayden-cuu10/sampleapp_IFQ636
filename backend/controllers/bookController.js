@@ -22,7 +22,7 @@ const addBook = async (req,res) => {
 const updateBook = async (req,res) => {
     const {title, author, price, type} = req.body;
     try{
-        const book = await Book.findById(req.params.id);
+        const book = await Book.findOne({title:req.params.title});
         if (!book) return res.status(404).json({message:'Book not found'});
 
         book.title = title || book.title;
@@ -39,7 +39,7 @@ const updateBook = async (req,res) => {
 
 const deleteBook = async (req,res) => {
     try{
-        const book = await Book.findById(req.params.id);
+        const book = await Book.findOne({title:req.params.title});
         if (!book) return res.status(404).json({message: 'Book not found'});
 
         await book.deleteOne();
