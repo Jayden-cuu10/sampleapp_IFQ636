@@ -114,8 +114,8 @@ This intalls dependencies for:
 Create a `.env` file inside the backend folder. (Before it, to registe an account for MonGo DB frist to get the connection string)
 
 ``` env
-`MONGO_URI=your_mongodb_connection_string`
-`JWT_SECRET=your_jwt_secret`
+`MONGO_URI=mongodb+srv://n11196718_db_user:Cjj34792771@cluster0.hviiubh.mongodb.net/taskmanager?appName=Cluster0`
+`JWT_SECRET=2J8zqkP7VN6bxzg+Wy7DQZCA3Yx8mF3Bl0kch6HYtFs`
 `PORT=5001`
 ```
 
