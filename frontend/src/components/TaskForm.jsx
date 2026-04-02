@@ -23,7 +23,7 @@ const BookForm = ({ tasks, setTasks, editingTask, setEditingTask }) => {
     e.preventDefault();
     try {
       if (editingTask) {
-        const response = await axiosInstance.put(`/api/book/${editingTask._id}`, formData, {
+        const response = await axiosInstance.put(`/api/book/title/${editingTask._title}`, formData, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setTasks(tasks.map((task) => (task._id === response.data._id ? response.data : task)));
